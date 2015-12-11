@@ -17,9 +17,8 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 CMD ["/sbin/my_init"]
 
 
-RUN apt-get -qy update && locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install nano wget software-properties-common
+RUN apt-get -qy update && apt-get -qy upgrade && locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8
+RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install nano curl software-properties-common --fix-missing
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository -y ppa:nginx/stable
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:ondrej/php-7.0
 RUN apt-get -qy update
