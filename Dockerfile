@@ -24,7 +24,7 @@ RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:ondrej/php-7.0
 RUN apt-get -qy update
 
 # install nginx and php7
-RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install nginx build-essential git
+RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install nginx build-essential git zip
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qy --force-yes install php7.0-fpm php7.0-curl php7.0-cli php7.0-common php7.0-json php7.0-opcache  php7.0-mysql php7.0-phpdbg php7.0-dbg php7.0-gd php7.0-imap php7.0-ldap php7.0-pgsql php7.0-pspell php7.0-recode php7.0-snmp php7.0-tidy php7.0-dev php7.0-intl php7.0-gd
 
 # install phpredis
