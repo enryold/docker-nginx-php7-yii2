@@ -2,7 +2,7 @@
 # sure you lock down to a specific version, not to `latest`!
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
-FROM phusion/baseimage
+FROM phusion/baseimage:latest
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 WORKDIR /
@@ -17,14 +17,14 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 CMD ["/sbin/my_init"]
 
 
-RUN apt-get -qy update && apt-get -qy upgrade && locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8
+RUN DEBIAN_FRONTEND=noninteractive apt-get -qy update && apt-get -qy upgrade && locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install nano curl software-properties-common --fix-missing
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository -y ppa:nginx/stable
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:ondrej/php-7.0
 RUN apt-get -qy update
 
 # install nginx and php7
-RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install nginx build-essential git zip
+RUN DEBIAN_FRONTEND=noninteractive apt-get -qy install nginx build-essential git zip --fix-missing
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qy --force-yes install php7.0-fpm php7.0-curl php7.0-cli php7.0-common php7.0-json php7.0-opcache  php7.0-mysql php7.0-phpdbg php7.0-dbg php7.0-gd php7.0-imap php7.0-ldap php7.0-pgsql php7.0-pspell php7.0-recode php7.0-snmp php7.0-tidy php7.0-dev php7.0-intl php7.0-gd
 
 # install phpredis
