@@ -59,15 +59,25 @@ RUN mv /etc/nginx/sites-available/cg_site_available.conf /etc/nginx/sites-availa
 
 #php fpm configuration
 ADD ./config-nginx/www.conf /etc/php/7.0/fpm/pool.d/www.conf
-RUN echo "cgi.fix_pathinfo = 0;" >> /etc//php/7.0/fpm/php.ini
+RUN echo "cgi.fix_pathinfo = 0;" >> /etc/php/7.0/fpm/php.ini
 
 
+#sysctl.conf tuning
+ADD ./config-sys/sysctl.conf /etc/sysctl.conf
 
+
+#ulimit tool
+RUN touch /usr/bin/getulimit && \
+ chmod 777 /usr/bin/getulimit  && \
+ echo "#!/bin/bash" >> /usr/bin/getulimit && \
+ echo "ulimit -Ha" >> /usr/bin/getulimit
 
 
 #main service
 RUN mkdir /etc/service/nginx-fpm-opcache && \
     echo "#!/bin/bash" >> /run.sh && \
+    echo "set -e" >> /run.sh && \
+    echo "ulimit -n 100000" >> /run.sh && \
     echo "service php7.0-fpm start" >> /run.sh && \
     echo "/usr/sbin/nginx" >> /run.sh && chmod +x /run.sh && \
     mv /run.sh /etc/service/nginx-fpm-opcache/run
