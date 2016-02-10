@@ -76,8 +76,6 @@ RUN touch /usr/bin/getulimit && \
 #main service
 RUN mkdir /etc/service/nginx-fpm-opcache && \
     echo "#!/bin/bash" >> /run.sh && \
-    echo "set -e" >> /run.sh && \
-    echo "ulimit -n 100000" >> /run.sh && \
     echo "service php7.0-fpm start" >> /run.sh && \
     echo "/usr/sbin/nginx" >> /run.sh && chmod +x /run.sh && \
     mv /run.sh /etc/service/nginx-fpm-opcache/run
