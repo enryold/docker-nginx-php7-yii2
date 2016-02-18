@@ -5,7 +5,7 @@ Docker image based on phusion/base-image with nginx php7-fpm, configured to use 
 Basic Usage.
 
 ```
-FROM enryold/nginx-php7-fpm-yii2
+FROM enryold/docker-nginx-php7-yii2
 
 COPY . /var/www
 
